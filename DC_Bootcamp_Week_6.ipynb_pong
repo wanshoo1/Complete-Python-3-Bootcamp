@@ -1,0 +1,4858 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/wanshoo1/Complete-Python-3-Bootcamp/blob/master/DC_Bootcamp_Week_6.ipynb_pong\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "wzK92AyS-b7R"
+      },
+      "source": [
+        "# Python for Data Science using Pandas (Accessing Data)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "gN2RFGn3VIJi"
+      },
+      "source": [
+        "## Run The Following Code\n",
+        "Hit SHIFT + ENTER when your cusor is inside the cell of code.<br/>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Download Required Data\n",
+        "**The code below here are to downlod the data required for this Weekly Tasks. Don't worry about knowing how to code out this part.**"
+      ],
+      "metadata": {
+        "id": "MGs-lu-0A8UZ"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!pip install wget"
+      ],
+      "metadata": {
+        "id": "gZaKWFDI-3yU",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "8186e035-1d9f-45b6-bb2d-863306d111b0"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Installing collected packages: wget\n",
+            "Successfully installed wget-3.2\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import wget\n",
+        "wget.download('https://d17lzt44idt8rf.cloudfront.net/data-week-6.zip')\n",
+        "!unzip data-week-6.zip -d ."
+      ],
+      "metadata": {
+        "id": "zCnDDX66-_lN",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "cbce6387-9510-475e-aa5e-8412a3d758f0"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Archive:  data-week-6.zip\n",
+            "   creating: ./data/\n",
+            "   creating: ./data/0_raw_data/\n",
+            "  inflating: ./data/0_raw_data/hdb_resale_full_raw.csv  \n",
+            "  inflating: ./data/0_raw_data/hdb_resale_sample_raw.csv  \n",
+            "  inflating: ./data/0_raw_data/hdb_resale_sample_raw.txt  \n",
+            "  inflating: ./data/0_raw_data/hdb_resale_sample_raw.xlsx  \n",
+            "   creating: ./data/1_processed_data/\n",
+            "  inflating: ./data/1_processed_data/hdb_resale_full_processed.csv  \n",
+            "  inflating: ./data/1_processed_data/hdb_resale_sample_processed.csv  \n",
+            "  inflating: ./data/image.jpg        \n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "dwlV8WPg-b7S"
+      },
+      "source": [
+        "# Numpy: A very brief intro"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "UdegaIwo-b7S"
+      },
+      "outputs": [],
+      "source": [
+        "import numpy as np"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "4hyB0lDO-b7T"
+      },
+      "source": [
+        "> Create an array of 1,1,2,3,5,8 <br/>\n",
+        "Compare with a list"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "8V5dkxJ4-b7T"
+      },
+      "outputs": [],
+      "source": [
+        "my_array = np.array([1,1,2,3,5,8])\n",
+        "my_list = [1,1,2,3,5,8]"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "4sA0Bl4W-b7T",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "c4787dcb-1be3-4a94-a2dd-3af5fbc411e9"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Array:  [1 1 2 3 5 8]\n",
+            "List :  [1, 1, 2, 3, 5, 8]\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(\"Array: \",my_array)\n",
+        "print(\"List : \",my_list)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "wrW0t5n1-b7T"
+      },
+      "source": [
+        "> Check the type of my_array and my_list. <br/>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "KZAocMJQ-b7T",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "675ed963-bccb-4278-f14f-f19a4eddf707"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Array:  <class 'numpy.ndarray'>\n",
+            "List :  <class 'list'>\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(\"Array: \",type(my_array))\n",
+        "print(\"List : \",type(my_list))"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "TuimsJ4m-b7T"
+      },
+      "source": [
+        "> perform NumPy math functions"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "7PxP6GZp-b7T"
+      },
+      "outputs": [],
+      "source": [
+        "my_array = np.array([1,1,2,3,5,8])"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "T4KO-i82VIJk",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "06e72a2d-348c-4ef3-9e6e-e5288027d081"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "sum: 20\n",
+            "min: 1\n",
+            "max: 8\n",
+            "mean: 3.3333333333333335\n",
+            "var: 6.222222222222221\n"
+          ]
+        }
+      ],
+      "source": [
+        "print('sum:', np.sum(my_array))\n",
+        "print('min:', np.min(my_array))\n",
+        "print('max:', np.max(my_array))\n",
+        "print('mean:', np.mean(my_array))\n",
+        "print('var:', np.var(my_array))"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "dg1hBaA7VIJl"
+      },
+      "source": [
+        "# Pandas"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "yr-HJXn1-b7U"
+      },
+      "source": [
+        "## Reading data from common data files"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "3fskFP6UVIJo"
+      },
+      "source": [
+        "> Data Preparation. Importing pandas"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "GChe2i8UVIJo"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "vWc1F08eVIJp"
+      },
+      "source": [
+        "> Open up an Excel file"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "iGnmXrx-VIJq"
+      },
+      "outputs": [],
+      "source": [
+        "hdb = 'data/0_raw_data/hdb_resale_sample_raw.xlsx'\n",
+        "\n",
+        "df = pd.read_excel(hdb)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "gctnxHQEVIJo"
+      },
+      "source": [
+        "> Open up a CSV file"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "1Wyy8PlXVIJp"
+      },
+      "outputs": [],
+      "source": [
+        "hdb = 'data/0_raw_data/hdb_resale_sample_raw.csv'\n",
+        "\n",
+        "df = pd.read_csv(hdb)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "8oNcfodGVIJq"
+      },
+      "source": [
+        "> viewing the contents of the dataset"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "RbQXwpS2-b7U"
+      },
+      "source": [
+        "## Understanding the data in DataFrame"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "i_bd859K-b7U"
+      },
+      "source": [
+        "The main dataset that we will work on is on HDB resale data.<br/>\n",
+        "See the description below for the fields given. <br/>\n",
+        "<br/>\n",
+        "<table>\n",
+        "    <tr><th>Field</th><th>Description</th></tr>\n",
+        "    <tr><td>Trans_YearMonth</td><td>year-month (YYYY-MM) for transaction</td></tr>\n",
+        "    <tr><td>town</td><td>town for the resale flat</td></tr>\n",
+        "    <tr><td>flat_type</td><td>flat type for the resale flat</td></tr>\n",
+        "    <tr><td>block</td><td>block for the resale flat</td></tr>\n",
+        "    <tr><td>street_name</td><td>street for the resale flat</td></tr>\n",
+        "    <tr><td>storey_range</td><td>range of the storey/level\n",
+        "    </td></tr>\n",
+        "    <tr><td>floor_area_sqm</td><td>floor area in square meter</td></tr>\n",
+        "    <tr><td>flat_model</td><td>model of resale flat</td></tr>\n",
+        "    <tr><td>lease_commence_date</td><td>year of lease commencement</td></tr>\n",
+        "    <tr><td>resale_price</td><td>price of the resale flat</td></tr>\n",
+        "</table>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "8XEoOcad-b7V",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "2b81df20-d9a6-4bb9-9083-921f981564be"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "(15000, 10)"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 13
+        }
+      ],
+      "source": [
+        "df.shape"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "nB2DLyrQVIJq",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 206
+        },
+        "outputId": "94d6eceb-9d7b-4ad7-ca9f-17e1b967eb85"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "  Tranc_YearMonth         town flat_type block    street_name storey_range  \\\n",
+              "0         2015-03  JURONG EAST    3 ROOM    39  TEBAN GDNS RD     01 TO 03   \n",
+              "1         2015-08  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "2         2016-11  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "3         2017-01  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "4         2017-10  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "\n",
+              "   floor_area_sqm flat_model  lease_commence_date  resale_price  \n",
+              "0            67.0   Improved                 1966      260000.0  \n",
+              "1            67.0   Improved                 1966      289000.0  \n",
+              "2            67.0   Improved                 1966      250000.0  \n",
+              "3            67.0   Improved                 1966      250000.0  \n",
+              "4            67.0   Improved                 1966      200000.0  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-531511e6-150b-438a-bd7c-0f46e49b0bd5\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Tranc_YearMonth</th>\n",
+              "      <th>town</th>\n",
+              "      <th>flat_type</th>\n",
+              "      <th>block</th>\n",
+              "      <th>street_name</th>\n",
+              "      <th>storey_range</th>\n",
+              "      <th>floor_area_sqm</th>\n",
+              "      <th>flat_model</th>\n",
+              "      <th>lease_commence_date</th>\n",
+              "      <th>resale_price</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>2015-03</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>39</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>260000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>2015-08</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>289000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>2016-11</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>250000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>2017-01</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>250000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>2017-10</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>200000.0</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-531511e6-150b-438a-bd7c-0f46e49b0bd5')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-531511e6-150b-438a-bd7c-0f46e49b0bd5 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-531511e6-150b-438a-bd7c-0f46e49b0bd5');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 14
+        }
+      ],
+      "source": [
+        "df.head()"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "4XA747EQVIJq",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 363
+        },
+        "outputId": "f138aa75-8952-47a9-af8a-aeda0a7123ed"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "  Tranc_YearMonth         town flat_type block    street_name storey_range  \\\n",
+              "0         2015-03  JURONG EAST    3 ROOM    39  TEBAN GDNS RD     01 TO 03   \n",
+              "1         2015-08  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "2         2016-11  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "3         2017-01  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "4         2017-10  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "5         2017-11  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "6         2018-01  JURONG EAST    3 ROOM    38  TEBAN GDNS RD     01 TO 03   \n",
+              "7         2018-06  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "8         2018-09  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "9         2019-07  JURONG EAST    3 ROOM    39  TEBAN GDNS RD     01 TO 03   \n",
+              "\n",
+              "   floor_area_sqm flat_model  lease_commence_date  resale_price  \n",
+              "0            67.0   Improved                 1966      260000.0  \n",
+              "1            67.0   Improved                 1966      289000.0  \n",
+              "2            67.0   Improved                 1966      250000.0  \n",
+              "3            67.0   Improved                 1966      250000.0  \n",
+              "4            67.0   Improved                 1966      200000.0  \n",
+              "5            67.0   Improved                 1966      232000.0  \n",
+              "6            67.0   Improved                 1966      235000.0  \n",
+              "7            67.0   Improved                 1966      226000.0  \n",
+              "8            67.0   Improved                 1966      215000.0  \n",
+              "9            67.0   Improved                 1966      218000.0  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-e4aaa789-7906-4582-b41d-9aad6bec715e\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Tranc_YearMonth</th>\n",
+              "      <th>town</th>\n",
+              "      <th>flat_type</th>\n",
+              "      <th>block</th>\n",
+              "      <th>street_name</th>\n",
+              "      <th>storey_range</th>\n",
+              "      <th>floor_area_sqm</th>\n",
+              "      <th>flat_model</th>\n",
+              "      <th>lease_commence_date</th>\n",
+              "      <th>resale_price</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>2015-03</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>39</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>260000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>2015-08</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>289000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>2016-11</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>250000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>2017-01</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>250000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>2017-10</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>200000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>5</th>\n",
+              "      <td>2017-11</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>232000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>6</th>\n",
+              "      <td>2018-01</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>38</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>235000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>7</th>\n",
+              "      <td>2018-06</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>226000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>8</th>\n",
+              "      <td>2018-09</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>215000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>9</th>\n",
+              "      <td>2019-07</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>39</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>218000.0</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-e4aaa789-7906-4582-b41d-9aad6bec715e')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-e4aaa789-7906-4582-b41d-9aad6bec715e button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-e4aaa789-7906-4582-b41d-9aad6bec715e');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 15
+        }
+      ],
+      "source": [
+        "df.head(10)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "X9ZKDM4sVIJr",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 206
+        },
+        "outputId": "ceb91fda-d6c5-4055-8812-7e79138044b5"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "      Tranc_YearMonth           town flat_type block  street_name  \\\n",
+              "14995         2013-06    JURONG WEST    5 ROOM   206  BOON LAY DR   \n",
+              "14996         2013-06    JURONG WEST    5 ROOM   211  BOON LAY PL   \n",
+              "14997         2013-06  MARINE PARADE    3 ROOM    67    MARINE DR   \n",
+              "14998         2013-06  MARINE PARADE    4 ROOM    76    MARINE DR   \n",
+              "14999         2013-06  MARINE PARADE    4 ROOM    62    MARINE DR   \n",
+              "\n",
+              "      storey_range  floor_area_sqm     flat_model  lease_commence_date  \\\n",
+              "14995     19 TO 21           120.0       Standard                 1976   \n",
+              "14996     07 TO 09           130.0  Adjoined flat                 1976   \n",
+              "14997     01 TO 03            65.0       Improved                 1976   \n",
+              "14998     01 TO 03            82.0       Improved                 1976   \n",
+              "14999     04 TO 06            87.0       Improved                 1976   \n",
+              "\n",
+              "       resale_price  \n",
+              "14995      495000.0  \n",
+              "14996      530000.0  \n",
+              "14997      400000.0  \n",
+              "14998      540000.0  \n",
+              "14999      611888.0  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-cd25705b-d054-4509-8712-739ed21cf319\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Tranc_YearMonth</th>\n",
+              "      <th>town</th>\n",
+              "      <th>flat_type</th>\n",
+              "      <th>block</th>\n",
+              "      <th>street_name</th>\n",
+              "      <th>storey_range</th>\n",
+              "      <th>floor_area_sqm</th>\n",
+              "      <th>flat_model</th>\n",
+              "      <th>lease_commence_date</th>\n",
+              "      <th>resale_price</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>14995</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>JURONG WEST</td>\n",
+              "      <td>5 ROOM</td>\n",
+              "      <td>206</td>\n",
+              "      <td>BOON LAY DR</td>\n",
+              "      <td>19 TO 21</td>\n",
+              "      <td>120.0</td>\n",
+              "      <td>Standard</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>495000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14996</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>JURONG WEST</td>\n",
+              "      <td>5 ROOM</td>\n",
+              "      <td>211</td>\n",
+              "      <td>BOON LAY PL</td>\n",
+              "      <td>07 TO 09</td>\n",
+              "      <td>130.0</td>\n",
+              "      <td>Adjoined flat</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>530000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14997</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>MARINE PARADE</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>67</td>\n",
+              "      <td>MARINE DR</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>65.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>400000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14998</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>MARINE PARADE</td>\n",
+              "      <td>4 ROOM</td>\n",
+              "      <td>76</td>\n",
+              "      <td>MARINE DR</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>82.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>540000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14999</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>MARINE PARADE</td>\n",
+              "      <td>4 ROOM</td>\n",
+              "      <td>62</td>\n",
+              "      <td>MARINE DR</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>87.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>611888.0</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-cd25705b-d054-4509-8712-739ed21cf319')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-cd25705b-d054-4509-8712-739ed21cf319 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-cd25705b-d054-4509-8712-739ed21cf319');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 16
+        }
+      ],
+      "source": [
+        "df.tail()"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "NSseZIQw-b7V",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "7883ccf1-158c-4703-91ff-45fc296c18bc"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "Index(['Tranc_YearMonth', 'town', 'flat_type', 'block', 'street_name',\n",
+              "       'storey_range', 'floor_area_sqm', 'flat_model', 'lease_commence_date',\n",
+              "       'resale_price'],\n",
+              "      dtype='object')"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 17
+        }
+      ],
+      "source": [
+        "df.columns"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "b5RZavef-b7V",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "cd72af07-30a3-4ddf-833c-22fe564d6180"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "['Tranc_YearMonth',\n",
+              " 'town',\n",
+              " 'flat_type',\n",
+              " 'block',\n",
+              " 'street_name',\n",
+              " 'storey_range',\n",
+              " 'floor_area_sqm',\n",
+              " 'flat_model',\n",
+              " 'lease_commence_date',\n",
+              " 'resale_price']"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 18
+        }
+      ],
+      "source": [
+        "# return names of column as a list\n",
+        "list(df.columns)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "vpV-FY2V-b7V"
+      },
+      "source": [
+        "> Locating data"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "16JqmZT7VIJu",
+        "scrolled": true,
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "1a9eb062-dd9e-4d8f-9a0d-04eda06bf4e7"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "<class 'pandas.core.frame.DataFrame'>\n",
+            "RangeIndex: 15000 entries, 0 to 14999\n",
+            "Data columns (total 10 columns):\n",
+            " #   Column               Non-Null Count  Dtype  \n",
+            "---  ------               --------------  -----  \n",
+            " 0   Tranc_YearMonth      15000 non-null  object \n",
+            " 1   town                 15000 non-null  object \n",
+            " 2   flat_type            15000 non-null  object \n",
+            " 3   block                15000 non-null  object \n",
+            " 4   street_name          15000 non-null  object \n",
+            " 5   storey_range         15000 non-null  object \n",
+            " 6   floor_area_sqm       15000 non-null  float64\n",
+            " 7   flat_model           15000 non-null  object \n",
+            " 8   lease_commence_date  15000 non-null  int64  \n",
+            " 9   resale_price         15000 non-null  float64\n",
+            "dtypes: float64(2), int64(1), object(7)\n",
+            "memory usage: 1.1+ MB\n"
+          ]
+        }
+      ],
+      "source": [
+        "df.info()"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "RtaSERBsVIJv",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 300
+        },
+        "outputId": "ab35f851-21c6-4189-8f0e-fd39b6b0ddef"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "       floor_area_sqm  lease_commence_date  resale_price\n",
+              "count    15000.000000         15000.000000  1.500000e+04\n",
+              "mean        69.900960          1972.663600  3.552616e+05\n",
+              "std         17.976735             2.842588  1.296763e+05\n",
+              "min         31.000000          1966.000000  1.400000e+05\n",
+              "25%         60.000000          1970.000000  2.700000e+05\n",
+              "50%         65.000000          1974.000000  3.200000e+05\n",
+              "75%         75.000000          1975.000000  3.950000e+05\n",
+              "max        280.000000          1976.000000  1.185000e+06"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-74994774-12d9-4f9b-b9aa-dbab62cbb8b4\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>floor_area_sqm</th>\n",
+              "      <th>lease_commence_date</th>\n",
+              "      <th>resale_price</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>count</th>\n",
+              "      <td>15000.000000</td>\n",
+              "      <td>15000.000000</td>\n",
+              "      <td>1.500000e+04</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>mean</th>\n",
+              "      <td>69.900960</td>\n",
+              "      <td>1972.663600</td>\n",
+              "      <td>3.552616e+05</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>std</th>\n",
+              "      <td>17.976735</td>\n",
+              "      <td>2.842588</td>\n",
+              "      <td>1.296763e+05</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>min</th>\n",
+              "      <td>31.000000</td>\n",
+              "      <td>1966.000000</td>\n",
+              "      <td>1.400000e+05</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>25%</th>\n",
+              "      <td>60.000000</td>\n",
+              "      <td>1970.000000</td>\n",
+              "      <td>2.700000e+05</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>50%</th>\n",
+              "      <td>65.000000</td>\n",
+              "      <td>1974.000000</td>\n",
+              "      <td>3.200000e+05</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>75%</th>\n",
+              "      <td>75.000000</td>\n",
+              "      <td>1975.000000</td>\n",
+              "      <td>3.950000e+05</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>max</th>\n",
+              "      <td>280.000000</td>\n",
+              "      <td>1976.000000</td>\n",
+              "      <td>1.185000e+06</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-74994774-12d9-4f9b-b9aa-dbab62cbb8b4')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-74994774-12d9-4f9b-b9aa-dbab62cbb8b4 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-74994774-12d9-4f9b-b9aa-dbab62cbb8b4');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 20
+        }
+      ],
+      "source": [
+        "df.describe()"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "7H6cghtG-b7W"
+      },
+      "source": [
+        "## Accessing the Data by Columns"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "wvlVT62W-b7W",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "8db0d083-9ed2-4fbb-cdbe-d781d9907ccc"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0        2015-03\n",
+              "1        2015-08\n",
+              "2        2016-11\n",
+              "3        2017-01\n",
+              "4        2017-10\n",
+              "          ...   \n",
+              "14995    2013-06\n",
+              "14996    2013-06\n",
+              "14997    2013-06\n",
+              "14998    2013-06\n",
+              "14999    2013-06\n",
+              "Name: Tranc_YearMonth, Length: 15000, dtype: object"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 21
+        }
+      ],
+      "source": [
+        "df['Tranc_YearMonth']"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "qp8zopji-b7W",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "d04f612c-321d-4d9e-f380-dcdab31579f6"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "pandas.core.series.Series"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 22
+        }
+      ],
+      "source": [
+        "type(df['Tranc_YearMonth'])"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "JBX5YMVR-b7W",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        },
+        "outputId": "7209e60f-9678-4573-b5c3-efff05c461fa"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "'JURONG EAST'"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "string"
+            }
+          },
+          "metadata": {},
+          "execution_count": 23
+        }
+      ],
+      "source": [
+        "df['town'][0]"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "Qh1YXRpg-b7W",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 423
+        },
+        "outputId": "1bb0a35f-728e-4c7f-eacd-249615af0cdd"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "      Tranc_YearMonth           town\n",
+              "0             2015-03    JURONG EAST\n",
+              "1             2015-08    JURONG EAST\n",
+              "2             2016-11    JURONG EAST\n",
+              "3             2017-01    JURONG EAST\n",
+              "4             2017-10    JURONG EAST\n",
+              "...               ...            ...\n",
+              "14995         2013-06    JURONG WEST\n",
+              "14996         2013-06    JURONG WEST\n",
+              "14997         2013-06  MARINE PARADE\n",
+              "14998         2013-06  MARINE PARADE\n",
+              "14999         2013-06  MARINE PARADE\n",
+              "\n",
+              "[15000 rows x 2 columns]"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-619fea04-2518-4662-a46a-3ddde0e0d74d\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Tranc_YearMonth</th>\n",
+              "      <th>town</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>2015-03</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>2015-08</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>2016-11</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>2017-01</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>2017-10</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14995</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>JURONG WEST</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14996</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>JURONG WEST</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14997</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>MARINE PARADE</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14998</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>MARINE PARADE</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14999</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>MARINE PARADE</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>15000 rows × 2 columns</p>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-619fea04-2518-4662-a46a-3ddde0e0d74d')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-619fea04-2518-4662-a46a-3ddde0e0d74d button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-619fea04-2518-4662-a46a-3ddde0e0d74d');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 24
+        }
+      ],
+      "source": [
+        "df[['Tranc_YearMonth','town']]"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "De10GnwV-b7W",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "9322d912-672c-47fc-c3ae-fd0fe2065373"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "pandas.core.frame.DataFrame"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 25
+        }
+      ],
+      "source": [
+        "type(df[['Tranc_YearMonth','town']])"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "lTe52hU1-b7W"
+      },
+      "source": [
+        "## Understanding data in a column"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "qIkatepWVIJu"
+      },
+      "source": [
+        "> Understanding data in a colum, using these methods\n",
+        "> - info\n",
+        "> - describe\n",
+        "> - unique values\n",
+        "> - value counts"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "Ln45SEJE-b7a",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "dd25ff85-d5aa-41fd-d6bb-af5db208df4c"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "array(['Improved', 'Standard', 'Adjoined flat', 'Terrace',\n",
+              "       'New Generation'], dtype=object)"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 34
+        }
+      ],
+      "source": [
+        "df['flat_model'].unique()"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "MKrGzwLZVIJw",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "ae1e0019-65b4-4020-a219-6a0dee9d805a"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "3 ROOM    11191\n",
+              "4 ROOM     1947\n",
+              "5 ROOM      942\n",
+              "2 ROOM      821\n",
+              "1 ROOM       99\n",
+              "Name: flat_type, dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 35
+        }
+      ],
+      "source": [
+        "df['flat_type'].value_counts()"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "v_r1O6pP-b7b"
+      },
+      "source": [
+        "## Accessing data by rows, using conditional statement(s)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "dXiro0_i-b7b",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "fa3e967c-c398-4f4d-c29f-c5c0817801e7"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0          JURONG EAST\n",
+              "1          JURONG EAST\n",
+              "2          JURONG EAST\n",
+              "3          JURONG EAST\n",
+              "4          JURONG EAST\n",
+              "             ...      \n",
+              "14995      JURONG WEST\n",
+              "14996      JURONG WEST\n",
+              "14997    MARINE PARADE\n",
+              "14998    MARINE PARADE\n",
+              "14999    MARINE PARADE\n",
+              "Name: town, Length: 15000, dtype: object"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 28
+        }
+      ],
+      "source": [
+        "# return a Series of the values in the town column (a collection objet that similar to LIST)\n",
+        "df['town']"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "oH-uWcg3-b7b",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "9f27436c-06dc-427c-bb20-d3b801baa349"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0         True\n",
+              "1         True\n",
+              "2         True\n",
+              "3         True\n",
+              "4         True\n",
+              "         ...  \n",
+              "14995    False\n",
+              "14996    False\n",
+              "14997    False\n",
+              "14998    False\n",
+              "14999    False\n",
+              "Name: town, Length: 15000, dtype: bool"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 29
+        }
+      ],
+      "source": [
+        "# use comparators (e.g., ==, !=, >=) to make this into a conditional statement\n",
+        "df['town'] == 'JURONG EAST'"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "Doiq_kAv-b7b",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 613
+        },
+        "outputId": "670b6478-4e16-4389-f3c6-da0c18adc7ea"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "   Tranc_YearMonth         town flat_type block    street_name storey_range  \\\n",
+              "0          2015-03  JURONG EAST    3 ROOM    39  TEBAN GDNS RD     01 TO 03   \n",
+              "1          2015-08  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "2          2016-11  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "3          2017-01  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "4          2017-10  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "5          2017-11  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "6          2018-01  JURONG EAST    3 ROOM    38  TEBAN GDNS RD     01 TO 03   \n",
+              "7          2018-06  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "8          2018-09  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "9          2019-07  JURONG EAST    3 ROOM    39  TEBAN GDNS RD     01 TO 03   \n",
+              "10         2019-09  JURONG EAST    3 ROOM    39  TEBAN GDNS RD     01 TO 03   \n",
+              "11         2020-01  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "12         2020-03  JURONG EAST    3 ROOM    38  TEBAN GDNS RD     04 TO 06   \n",
+              "13         2020-08  JURONG EAST    3 ROOM    39  TEBAN GDNS RD     04 TO 06   \n",
+              "14         2020-12  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "15         2013-01  JURONG EAST    3 ROOM    39  TEBAN GDNS RD     01 TO 03   \n",
+              "16         2013-04  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "17         2013-07  JURONG EAST    3 ROOM    38  TEBAN GDNS RD     01 TO 03   \n",
+              "\n",
+              "    floor_area_sqm flat_model  lease_commence_date  resale_price  \n",
+              "0             67.0   Improved                 1966      260000.0  \n",
+              "1             67.0   Improved                 1966      289000.0  \n",
+              "2             67.0   Improved                 1966      250000.0  \n",
+              "3             67.0   Improved                 1966      250000.0  \n",
+              "4             67.0   Improved                 1966      200000.0  \n",
+              "5             67.0   Improved                 1966      232000.0  \n",
+              "6             67.0   Improved                 1966      235000.0  \n",
+              "7             67.0   Improved                 1966      226000.0  \n",
+              "8             67.0   Improved                 1966      215000.0  \n",
+              "9             67.0   Improved                 1966      218000.0  \n",
+              "10            67.0   Improved                 1966      220000.0  \n",
+              "11            67.0   Improved                 1966      220000.0  \n",
+              "12            67.0   Improved                 1966      210000.0  \n",
+              "13            67.0   Improved                 1966      228000.0  \n",
+              "14            67.0   Improved                 1966      230000.0  \n",
+              "15            67.0   Improved                 1966      315000.0  \n",
+              "16            67.0   Improved                 1966      311000.0  \n",
+              "17            67.0   Improved                 1966      310000.0  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-ffddc2de-71a7-4988-81a8-00a7dc1781ec\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Tranc_YearMonth</th>\n",
+              "      <th>town</th>\n",
+              "      <th>flat_type</th>\n",
+              "      <th>block</th>\n",
+              "      <th>street_name</th>\n",
+              "      <th>storey_range</th>\n",
+              "      <th>floor_area_sqm</th>\n",
+              "      <th>flat_model</th>\n",
+              "      <th>lease_commence_date</th>\n",
+              "      <th>resale_price</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>2015-03</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>39</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>260000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>2015-08</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>289000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>2016-11</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>250000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>2017-01</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>250000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>2017-10</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>200000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>5</th>\n",
+              "      <td>2017-11</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>232000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>6</th>\n",
+              "      <td>2018-01</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>38</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>235000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>7</th>\n",
+              "      <td>2018-06</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>226000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>8</th>\n",
+              "      <td>2018-09</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>215000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>9</th>\n",
+              "      <td>2019-07</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>39</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>218000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>10</th>\n",
+              "      <td>2019-09</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>39</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>220000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>11</th>\n",
+              "      <td>2020-01</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>220000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>12</th>\n",
+              "      <td>2020-03</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>38</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>210000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>13</th>\n",
+              "      <td>2020-08</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>39</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>228000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14</th>\n",
+              "      <td>2020-12</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>230000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>15</th>\n",
+              "      <td>2013-01</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>39</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>315000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>16</th>\n",
+              "      <td>2013-04</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>311000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>17</th>\n",
+              "      <td>2013-07</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>38</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>310000.0</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-ffddc2de-71a7-4988-81a8-00a7dc1781ec')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-ffddc2de-71a7-4988-81a8-00a7dc1781ec button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-ffddc2de-71a7-4988-81a8-00a7dc1781ec');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 30
+        }
+      ],
+      "source": [
+        "# performing the result (Boolean) of the conditional statement to select rows that meet the criterion\n",
+        "# this is also known as filtering\n",
+        "df[df['town'] == 'JURONG EAST'] "
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "cnEXl97H-b7b",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 394
+        },
+        "outputId": "05cf5a8f-2b94-40f2-8e75-c63b7d674470"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "   Tranc_YearMonth         town flat_type block    street_name storey_range  \\\n",
+              "4          2017-10  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "5          2017-11  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "6          2018-01  JURONG EAST    3 ROOM    38  TEBAN GDNS RD     01 TO 03   \n",
+              "7          2018-06  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "8          2018-09  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "9          2019-07  JURONG EAST    3 ROOM    39  TEBAN GDNS RD     01 TO 03   \n",
+              "10         2019-09  JURONG EAST    3 ROOM    39  TEBAN GDNS RD     01 TO 03   \n",
+              "11         2020-01  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "12         2020-03  JURONG EAST    3 ROOM    38  TEBAN GDNS RD     04 TO 06   \n",
+              "13         2020-08  JURONG EAST    3 ROOM    39  TEBAN GDNS RD     04 TO 06   \n",
+              "14         2020-12  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "\n",
+              "    floor_area_sqm flat_model  lease_commence_date  resale_price  \n",
+              "4             67.0   Improved                 1966      200000.0  \n",
+              "5             67.0   Improved                 1966      232000.0  \n",
+              "6             67.0   Improved                 1966      235000.0  \n",
+              "7             67.0   Improved                 1966      226000.0  \n",
+              "8             67.0   Improved                 1966      215000.0  \n",
+              "9             67.0   Improved                 1966      218000.0  \n",
+              "10            67.0   Improved                 1966      220000.0  \n",
+              "11            67.0   Improved                 1966      220000.0  \n",
+              "12            67.0   Improved                 1966      210000.0  \n",
+              "13            67.0   Improved                 1966      228000.0  \n",
+              "14            67.0   Improved                 1966      230000.0  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-b2321174-f4ad-4db1-a164-753c86c16b8b\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Tranc_YearMonth</th>\n",
+              "      <th>town</th>\n",
+              "      <th>flat_type</th>\n",
+              "      <th>block</th>\n",
+              "      <th>street_name</th>\n",
+              "      <th>storey_range</th>\n",
+              "      <th>floor_area_sqm</th>\n",
+              "      <th>flat_model</th>\n",
+              "      <th>lease_commence_date</th>\n",
+              "      <th>resale_price</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>2017-10</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>200000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>5</th>\n",
+              "      <td>2017-11</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>232000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>6</th>\n",
+              "      <td>2018-01</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>38</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>235000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>7</th>\n",
+              "      <td>2018-06</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>226000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>8</th>\n",
+              "      <td>2018-09</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>215000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>9</th>\n",
+              "      <td>2019-07</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>39</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>218000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>10</th>\n",
+              "      <td>2019-09</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>39</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>220000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>11</th>\n",
+              "      <td>2020-01</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>220000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>12</th>\n",
+              "      <td>2020-03</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>38</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>210000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>13</th>\n",
+              "      <td>2020-08</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>39</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>228000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14</th>\n",
+              "      <td>2020-12</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>230000.0</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-b2321174-f4ad-4db1-a164-753c86c16b8b')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-b2321174-f4ad-4db1-a164-753c86c16b8b button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-b2321174-f4ad-4db1-a164-753c86c16b8b');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 31
+        }
+      ],
+      "source": [
+        "# Select rows based on multiple criteria, by joining then usng & and | (logical operators)\n",
+        "# Note that it's compulsory to have the round blacket () for each criterion and must use the & and | (not AND and OR operators)\n",
+        "df[(df['town'] == 'JURONG EAST') & (df['resale_price'] < 250000)] "
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "6dfT9dmh-b7b",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 423
+        },
+        "outputId": "c25f2358-ff8a-474a-f93d-1b2c38762488"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "      Tranc_YearMonth         town flat_type block     street_name  \\\n",
+              "0             2015-03  JURONG EAST    3 ROOM    39   TEBAN GDNS RD   \n",
+              "1             2015-08  JURONG EAST    3 ROOM    37   TEBAN GDNS RD   \n",
+              "2             2016-11  JURONG EAST    3 ROOM    37   TEBAN GDNS RD   \n",
+              "3             2017-01  JURONG EAST    3 ROOM    37   TEBAN GDNS RD   \n",
+              "4             2017-10  JURONG EAST    3 ROOM    37   TEBAN GDNS RD   \n",
+              "...               ...          ...       ...   ...             ...   \n",
+              "14389         2021-03  JURONG WEST    3 ROOM   209     BOON LAY PL   \n",
+              "14390         2021-03  JURONG WEST    3 ROOM   209     BOON LAY PL   \n",
+              "14391         2021-03  JURONG WEST    3 ROOM   211     BOON LAY PL   \n",
+              "14413         2021-03    WOODLANDS    3 ROOM     6    MARSILING DR   \n",
+              "14439         2021-04    WOODLANDS    3 ROOM    13  MARSILING LANE   \n",
+              "\n",
+              "      storey_range  floor_area_sqm flat_model  lease_commence_date  \\\n",
+              "0         01 TO 03            67.0   Improved                 1966   \n",
+              "1         04 TO 06            67.0   Improved                 1966   \n",
+              "2         04 TO 06            67.0   Improved                 1966   \n",
+              "3         04 TO 06            67.0   Improved                 1966   \n",
+              "4         01 TO 03            67.0   Improved                 1966   \n",
+              "...            ...             ...        ...                  ...   \n",
+              "14389     01 TO 03            65.0   Improved                 1976   \n",
+              "14390     01 TO 03            65.0   Improved                 1976   \n",
+              "14391     10 TO 12            65.0   Improved                 1976   \n",
+              "14413     04 TO 06            65.0   Improved                 1976   \n",
+              "14439     07 TO 09            76.0   Improved                 1976   \n",
+              "\n",
+              "       resale_price  \n",
+              "0          260000.0  \n",
+              "1          289000.0  \n",
+              "2          250000.0  \n",
+              "3          250000.0  \n",
+              "4          200000.0  \n",
+              "...             ...  \n",
+              "14389      248000.0  \n",
+              "14390      245000.0  \n",
+              "14391      232000.0  \n",
+              "14413      228888.0  \n",
+              "14439      240000.0  \n",
+              "\n",
+              "[2229 rows x 10 columns]"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-706fa269-51d3-4adc-8cd7-508db4929cd5\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Tranc_YearMonth</th>\n",
+              "      <th>town</th>\n",
+              "      <th>flat_type</th>\n",
+              "      <th>block</th>\n",
+              "      <th>street_name</th>\n",
+              "      <th>storey_range</th>\n",
+              "      <th>floor_area_sqm</th>\n",
+              "      <th>flat_model</th>\n",
+              "      <th>lease_commence_date</th>\n",
+              "      <th>resale_price</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>2015-03</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>39</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>260000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>2015-08</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>289000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>2016-11</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>250000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>2017-01</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>250000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>2017-10</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>200000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14389</th>\n",
+              "      <td>2021-03</td>\n",
+              "      <td>JURONG WEST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>209</td>\n",
+              "      <td>BOON LAY PL</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>65.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>248000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14390</th>\n",
+              "      <td>2021-03</td>\n",
+              "      <td>JURONG WEST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>209</td>\n",
+              "      <td>BOON LAY PL</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>65.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>245000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14391</th>\n",
+              "      <td>2021-03</td>\n",
+              "      <td>JURONG WEST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>211</td>\n",
+              "      <td>BOON LAY PL</td>\n",
+              "      <td>10 TO 12</td>\n",
+              "      <td>65.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>232000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14413</th>\n",
+              "      <td>2021-03</td>\n",
+              "      <td>WOODLANDS</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>6</td>\n",
+              "      <td>MARSILING DR</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>65.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>228888.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14439</th>\n",
+              "      <td>2021-04</td>\n",
+              "      <td>WOODLANDS</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>13</td>\n",
+              "      <td>MARSILING LANE</td>\n",
+              "      <td>07 TO 09</td>\n",
+              "      <td>76.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>240000.0</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>2229 rows × 10 columns</p>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-706fa269-51d3-4adc-8cd7-508db4929cd5')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-706fa269-51d3-4adc-8cd7-508db4929cd5 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-706fa269-51d3-4adc-8cd7-508db4929cd5');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 32
+        }
+      ],
+      "source": [
+        "df[(df['town'] == 'JURONG EAST') | (df['resale_price'] < 250000)]"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "CGHoykT9-b7b",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 423
+        },
+        "outputId": "7dc40b6b-7c30-4746-d7b1-70528e49ac03"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "      Tranc_YearMonth           town flat_type block  street_name  \\\n",
+              "18            2015-01        GEYLANG    3 ROOM    20     BALAM RD   \n",
+              "19            2015-01        GEYLANG    3 ROOM    23     BALAM RD   \n",
+              "20            2015-01     QUEENSTOWN    3 ROOM    83  C'WEALTH CL   \n",
+              "21            2015-01     QUEENSTOWN    3 ROOM    95  C'WEALTH DR   \n",
+              "22            2015-01     QUEENSTOWN    3 ROOM    93  C'WEALTH DR   \n",
+              "...               ...            ...       ...   ...          ...   \n",
+              "14995         2013-06    JURONG WEST    5 ROOM   206  BOON LAY DR   \n",
+              "14996         2013-06    JURONG WEST    5 ROOM   211  BOON LAY PL   \n",
+              "14997         2013-06  MARINE PARADE    3 ROOM    67    MARINE DR   \n",
+              "14998         2013-06  MARINE PARADE    4 ROOM    76    MARINE DR   \n",
+              "14999         2013-06  MARINE PARADE    4 ROOM    62    MARINE DR   \n",
+              "\n",
+              "      storey_range  floor_area_sqm     flat_model  lease_commence_date  \\\n",
+              "18        04 TO 06            60.3       Standard                 1967   \n",
+              "19        07 TO 09            60.3       Standard                 1967   \n",
+              "20        04 TO 06            60.0       Standard                 1967   \n",
+              "21        04 TO 06            68.0       Standard                 1967   \n",
+              "22        04 TO 06            60.0       Standard                 1967   \n",
+              "...            ...             ...            ...                  ...   \n",
+              "14995     19 TO 21           120.0       Standard                 1976   \n",
+              "14996     07 TO 09           130.0  Adjoined flat                 1976   \n",
+              "14997     01 TO 03            65.0       Improved                 1976   \n",
+              "14998     01 TO 03            82.0       Improved                 1976   \n",
+              "14999     04 TO 06            87.0       Improved                 1976   \n",
+              "\n",
+              "       resale_price  \n",
+              "18         275000.0  \n",
+              "19         282000.0  \n",
+              "20         310000.0  \n",
+              "21         335000.0  \n",
+              "22         350000.0  \n",
+              "...             ...  \n",
+              "14995      495000.0  \n",
+              "14996      530000.0  \n",
+              "14997      400000.0  \n",
+              "14998      540000.0  \n",
+              "14999      611888.0  \n",
+              "\n",
+              "[14982 rows x 10 columns]"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-fdeb9280-2f9b-4210-a889-e4d7ae5c45d7\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Tranc_YearMonth</th>\n",
+              "      <th>town</th>\n",
+              "      <th>flat_type</th>\n",
+              "      <th>block</th>\n",
+              "      <th>street_name</th>\n",
+              "      <th>storey_range</th>\n",
+              "      <th>floor_area_sqm</th>\n",
+              "      <th>flat_model</th>\n",
+              "      <th>lease_commence_date</th>\n",
+              "      <th>resale_price</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>18</th>\n",
+              "      <td>2015-01</td>\n",
+              "      <td>GEYLANG</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>20</td>\n",
+              "      <td>BALAM RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>60.3</td>\n",
+              "      <td>Standard</td>\n",
+              "      <td>1967</td>\n",
+              "      <td>275000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>19</th>\n",
+              "      <td>2015-01</td>\n",
+              "      <td>GEYLANG</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>23</td>\n",
+              "      <td>BALAM RD</td>\n",
+              "      <td>07 TO 09</td>\n",
+              "      <td>60.3</td>\n",
+              "      <td>Standard</td>\n",
+              "      <td>1967</td>\n",
+              "      <td>282000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>20</th>\n",
+              "      <td>2015-01</td>\n",
+              "      <td>QUEENSTOWN</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>83</td>\n",
+              "      <td>C'WEALTH CL</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>60.0</td>\n",
+              "      <td>Standard</td>\n",
+              "      <td>1967</td>\n",
+              "      <td>310000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>21</th>\n",
+              "      <td>2015-01</td>\n",
+              "      <td>QUEENSTOWN</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>95</td>\n",
+              "      <td>C'WEALTH DR</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>68.0</td>\n",
+              "      <td>Standard</td>\n",
+              "      <td>1967</td>\n",
+              "      <td>335000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>22</th>\n",
+              "      <td>2015-01</td>\n",
+              "      <td>QUEENSTOWN</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>93</td>\n",
+              "      <td>C'WEALTH DR</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>60.0</td>\n",
+              "      <td>Standard</td>\n",
+              "      <td>1967</td>\n",
+              "      <td>350000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14995</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>JURONG WEST</td>\n",
+              "      <td>5 ROOM</td>\n",
+              "      <td>206</td>\n",
+              "      <td>BOON LAY DR</td>\n",
+              "      <td>19 TO 21</td>\n",
+              "      <td>120.0</td>\n",
+              "      <td>Standard</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>495000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14996</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>JURONG WEST</td>\n",
+              "      <td>5 ROOM</td>\n",
+              "      <td>211</td>\n",
+              "      <td>BOON LAY PL</td>\n",
+              "      <td>07 TO 09</td>\n",
+              "      <td>130.0</td>\n",
+              "      <td>Adjoined flat</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>530000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14997</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>MARINE PARADE</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>67</td>\n",
+              "      <td>MARINE DR</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>65.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>400000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14998</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>MARINE PARADE</td>\n",
+              "      <td>4 ROOM</td>\n",
+              "      <td>76</td>\n",
+              "      <td>MARINE DR</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>82.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>540000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14999</th>\n",
+              "      <td>2013-06</td>\n",
+              "      <td>MARINE PARADE</td>\n",
+              "      <td>4 ROOM</td>\n",
+              "      <td>62</td>\n",
+              "      <td>MARINE DR</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>87.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1976</td>\n",
+              "      <td>611888.0</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>14982 rows × 10 columns</p>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-fdeb9280-2f9b-4210-a889-e4d7ae5c45d7')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-fdeb9280-2f9b-4210-a889-e4d7ae5c45d7 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-fdeb9280-2f9b-4210-a889-e4d7ae5c45d7');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 33
+        }
+      ],
+      "source": [
+        "df[(df['town'] != 'JURONG EAST')] "
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "tags": [],
+        "id": "fdANx0ZS-b7c"
+      },
+      "source": [
+        "# Doing calculations using columns in a DataFrame"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "6YF1P3ZS-b7c",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 206
+        },
+        "outputId": "758f41d6-d07c-4bf7-86c7-0305da8a2690"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "  Tranc_YearMonth         town flat_type block    street_name storey_range  \\\n",
+              "0         2015-03  JURONG EAST    3 ROOM    39  TEBAN GDNS RD     01 TO 03   \n",
+              "1         2015-08  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "2         2016-11  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "3         2017-01  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     04 TO 06   \n",
+              "4         2017-10  JURONG EAST    3 ROOM    37  TEBAN GDNS RD     01 TO 03   \n",
+              "\n",
+              "   floor_area_sqm flat_model  lease_commence_date  resale_price  \\\n",
+              "0            67.0   Improved                 1966      260000.0   \n",
+              "1            67.0   Improved                 1966      289000.0   \n",
+              "2            67.0   Improved                 1966      250000.0   \n",
+              "3            67.0   Improved                 1966      250000.0   \n",
+              "4            67.0   Improved                 1966      200000.0   \n",
+              "\n",
+              "  resale_price_in_thousands  \n",
+              "0                      test  \n",
+              "1                      test  \n",
+              "2                      test  \n",
+              "3                      test  \n",
+              "4                      test  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-79f0ffaf-df50-49d2-9bc9-1e8155fe043a\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Tranc_YearMonth</th>\n",
+              "      <th>town</th>\n",
+              "      <th>flat_type</th>\n",
+              "      <th>block</th>\n",
+              "      <th>street_name</th>\n",
+              "      <th>storey_range</th>\n",
+              "      <th>floor_area_sqm</th>\n",
+              "      <th>flat_model</th>\n",
+              "      <th>lease_commence_date</th>\n",
+              "      <th>resale_price</th>\n",
+              "      <th>resale_price_in_thousands</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>2015-03</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>39</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>260000.0</td>\n",
+              "      <td>test</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>2015-08</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>289000.0</td>\n",
+              "      <td>test</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>2016-11</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>250000.0</td>\n",
+              "      <td>test</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>2017-01</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>04 TO 06</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>250000.0</td>\n",
+              "      <td>test</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>2017-10</td>\n",
+              "      <td>JURONG EAST</td>\n",
+              "      <td>3 ROOM</td>\n",
+              "      <td>37</td>\n",
+              "      <td>TEBAN GDNS RD</td>\n",
+              "      <td>01 TO 03</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>Improved</td>\n",
+              "      <td>1966</td>\n",
+              "      <td>200000.0</td>\n",
+              "      <td>test</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-79f0ffaf-df50-49d2-9bc9-1e8155fe043a')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-79f0ffaf-df50-49d2-9bc9-1e8155fe043a button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-79f0ffaf-df50-49d2-9bc9-1e8155fe043a');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 36
+        }
+      ],
+      "source": [
+        "# first, understand how to create a new column\n",
+        "df['resale_price_in_thousands'] = 'test'\n",
+        "df.head(5)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "uwXZgaeO-b7c",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "e39ff8d2-3c12-4255-931d-b52a8fa1f529"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0        260.000\n",
+              "1        289.000\n",
+              "2        250.000\n",
+              "3        250.000\n",
+              "4        200.000\n",
+              "          ...   \n",
+              "14995    495.000\n",
+              "14996    530.000\n",
+              "14997    400.000\n",
+              "14998    540.000\n",
+              "14999    611.888\n",
+              "Name: resale_price, Length: 15000, dtype: float64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 37
+        }
+      ],
+      "source": [
+        "df['resale_price'] / 1000"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "ThXNpBEy-b7c"
+      },
+      "outputs": [],
+      "source": [
+        "df['resale_price_in_thousands'] = df['resale_price'] / 1000"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "58Hq2Ped-b7c"
+      },
+      "outputs": [],
+      "source": [
+        "# Now try using multiple columns \n",
+        "df['price_per_sqm'] = df['resale_price'] / df['floor_area_sqm']"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "yMUrZezA-b7c"
+      },
+      "outputs": [],
+      "source": [
+        "# Removing a column \n",
+        "df = df.drop('resale_price_in_thousands', axis=1)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "egzgtH5P-b7c"
+      },
+      "source": [
+        "# Using Numpy functions with a DataFrame"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "7xTFSwDQ-b7c",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "12eb7f1f-0a9d-4cfe-d7e4-310d6e65655f"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "355261.5643086667"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 41
+        }
+      ],
+      "source": [
+        "# using the function from Numpy\n",
+        "np.mean(df['resale_price'])"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "tags": [],
+        "id": "difNGiju-b7c",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "a36e10d8-f47d-4f06-fd21-3927e14991ff"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "355261.5643086667"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 42
+        }
+      ],
+      "source": [
+        "# using the built-in numpy functions from the DataFrame object\n",
+        "# encouraged way, but not all functions may available via this way\n",
+        "df['resale_price'].mean()"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "_nWDNioL-b7c",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 423
+        },
+        "outputId": "8ee4ac53-1b86-4b26-9dd1-4699a37d61cc"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "       resale_price  price_per_sqm\n",
+              "0          260000.0    3880.597015\n",
+              "1          289000.0    4313.432836\n",
+              "2          250000.0    3731.343284\n",
+              "3          250000.0    3731.343284\n",
+              "4          200000.0    2985.074627\n",
+              "...             ...            ...\n",
+              "14995      495000.0    4125.000000\n",
+              "14996      530000.0    4076.923077\n",
+              "14997      400000.0    6153.846154\n",
+              "14998      540000.0    6585.365854\n",
+              "14999      611888.0    7033.195402\n",
+              "\n",
+              "[15000 rows x 2 columns]"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-0d23025c-c2fb-4295-b4a0-92e9668639d5\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>resale_price</th>\n",
+              "      <th>price_per_sqm</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>260000.0</td>\n",
+              "      <td>3880.597015</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>289000.0</td>\n",
+              "      <td>4313.432836</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>250000.0</td>\n",
+              "      <td>3731.343284</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>250000.0</td>\n",
+              "      <td>3731.343284</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>200000.0</td>\n",
+              "      <td>2985.074627</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14995</th>\n",
+              "      <td>495000.0</td>\n",
+              "      <td>4125.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14996</th>\n",
+              "      <td>530000.0</td>\n",
+              "      <td>4076.923077</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14997</th>\n",
+              "      <td>400000.0</td>\n",
+              "      <td>6153.846154</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14998</th>\n",
+              "      <td>540000.0</td>\n",
+              "      <td>6585.365854</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14999</th>\n",
+              "      <td>611888.0</td>\n",
+              "      <td>7033.195402</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>15000 rows × 2 columns</p>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-0d23025c-c2fb-4295-b4a0-92e9668639d5')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-0d23025c-c2fb-4295-b4a0-92e9668639d5 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-0d23025c-c2fb-4295-b4a0-92e9668639d5');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 43
+        }
+      ],
+      "source": [
+        "# creating a subset of the dataframe, selected columns only\n",
+        "df_sub = df[['resale_price', 'price_per_sqm']]\n",
+        "df_sub"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "G4kWVf5r-b7c",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "b80ae4f9-febb-4b8f-af10-5c12fbbd5a5b"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0        131940.298507\n",
+              "1        146656.716418\n",
+              "2        126865.671642\n",
+              "3        126865.671642\n",
+              "4        101492.537313\n",
+              "             ...      \n",
+              "14995    249562.500000\n",
+              "14996    267038.461538\n",
+              "14997    203076.923077\n",
+              "14998    273292.682927\n",
+              "14999    309460.597701\n",
+              "Length: 15000, dtype: float64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 44
+        }
+      ],
+      "source": [
+        "# applying the mean() method to the columns \n",
+        "# that is, to average the values across columns\n",
+        "df_sub.mean(axis=1)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "1dITF6dR-b7c",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "0935517f-9baa-4ccd-e34e-b739deec0ed3"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "resale_price     355261.564309\n",
+              "price_per_sqm      5056.182315\n",
+              "dtype: float64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 45
+        }
+      ],
+      "source": [
+        "# applying the mean() method to rows\n",
+        "# that is, to average the values across rows\n",
+        "df_sub.mean(axis=0)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "tags": [],
+        "id": "CQEv3Zz8-b7c"
+      },
+      "source": [
+        "## Extra: Getting data from websites (Intenet required)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "NA_nM7Um-b7d"
+      },
+      "outputs": [],
+      "source": [
+        "# Have a look at the website to see how it looks visually\n",
+        "tables = pd.read_html('https://en.wikipedia.org/wiki/List_of_unicorn_startup_companies')"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "Q8x4FS3--b7d",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 423
+        },
+        "outputId": "1f48bceb-c0bb-4cee-d284-b056e53838e5"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "                Company Last valuation (US$ billions)      Valuation date  \\\n",
+              "0                  Uber                            72    August 2018[576]   \n",
+              "1                  DiDi                            62      July 2019[578]   \n",
+              "2              Facebook                            50        January 2011   \n",
+              "3                Xiaomi                            45          April 2015   \n",
+              "4               Alibaba                            42           June 2016   \n",
+              "..                  ...                           ...                 ...   \n",
+              "191                Zimi                            1+  February 2015[125]   \n",
+              "192           QingCloud                            1+      June 2017[125]   \n",
+              "193            Novogene                            1+  November 2016[125]   \n",
+              "194           MissFresh                            1+  December 2017[125]   \n",
+              "195  Essential Products                            1+    August 2017[828]   \n",
+              "\n",
+              "               Exit date Exit reason Exit valuation (US$ billions) Country  \\\n",
+              "0          May 2019[577]         IPO                          82.4      US   \n",
+              "1         June 2021[579]         IPO                            73   China   \n",
+              "2          May 2012[580]         IPO                           104      US   \n",
+              "3         July 2018[581]         IPO                            70   China   \n",
+              "4    September 2014[582]         IPO                           238   China   \n",
+              "..                   ...         ...                           ...     ...   \n",
+              "191      March 2021[825]    Acquired                           0.4   China   \n",
+              "192      March 2021[826]         IPO                          0.46   China   \n",
+              "193           April 2021         IPO                           NaN   China   \n",
+              "194       June 2021[827]         IPO                           2.5   China   \n",
+              "195   February 2020[829]     Defunct                           NaN      US   \n",
+              "\n",
+              "                                              Founders  \n",
+              "0                         Travis Kalanick, Garett Camp  \n",
+              "1                                            Cheng Wei  \n",
+              "2    Mark Zuckerberg, Eduardo Saverin, Andrew McCol...  \n",
+              "3                                              Lei Jun  \n",
+              "4                                              Jack Ma  \n",
+              "..                                                 ...  \n",
+              "191                                                NaN  \n",
+              "192                                                NaN  \n",
+              "193                                                NaN  \n",
+              "194                                                NaN  \n",
+              "195                                                NaN  \n",
+              "\n",
+              "[196 rows x 8 columns]"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-1ca2dd93-68c3-44ba-9d38-d05661d9b220\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Company</th>\n",
+              "      <th>Last valuation (US$ billions)</th>\n",
+              "      <th>Valuation date</th>\n",
+              "      <th>Exit date</th>\n",
+              "      <th>Exit reason</th>\n",
+              "      <th>Exit valuation (US$ billions)</th>\n",
+              "      <th>Country</th>\n",
+              "      <th>Founders</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>Uber</td>\n",
+              "      <td>72</td>\n",
+              "      <td>August 2018[576]</td>\n",
+              "      <td>May 2019[577]</td>\n",
+              "      <td>IPO</td>\n",
+              "      <td>82.4</td>\n",
+              "      <td>US</td>\n",
+              "      <td>Travis Kalanick, Garett Camp</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>DiDi</td>\n",
+              "      <td>62</td>\n",
+              "      <td>July 2019[578]</td>\n",
+              "      <td>June 2021[579]</td>\n",
+              "      <td>IPO</td>\n",
+              "      <td>73</td>\n",
+              "      <td>China</td>\n",
+              "      <td>Cheng Wei</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>Facebook</td>\n",
+              "      <td>50</td>\n",
+              "      <td>January 2011</td>\n",
+              "      <td>May 2012[580]</td>\n",
+              "      <td>IPO</td>\n",
+              "      <td>104</td>\n",
+              "      <td>US</td>\n",
+              "      <td>Mark Zuckerberg, Eduardo Saverin, Andrew McCol...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>Xiaomi</td>\n",
+              "      <td>45</td>\n",
+              "      <td>April 2015</td>\n",
+              "      <td>July 2018[581]</td>\n",
+              "      <td>IPO</td>\n",
+              "      <td>70</td>\n",
+              "      <td>China</td>\n",
+              "      <td>Lei Jun</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>Alibaba</td>\n",
+              "      <td>42</td>\n",
+              "      <td>June 2016</td>\n",
+              "      <td>September 2014[582]</td>\n",
+              "      <td>IPO</td>\n",
+              "      <td>238</td>\n",
+              "      <td>China</td>\n",
+              "      <td>Jack Ma</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>191</th>\n",
+              "      <td>Zimi</td>\n",
+              "      <td>1+</td>\n",
+              "      <td>February 2015[125]</td>\n",
+              "      <td>March 2021[825]</td>\n",
+              "      <td>Acquired</td>\n",
+              "      <td>0.4</td>\n",
+              "      <td>China</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>192</th>\n",
+              "      <td>QingCloud</td>\n",
+              "      <td>1+</td>\n",
+              "      <td>June 2017[125]</td>\n",
+              "      <td>March 2021[826]</td>\n",
+              "      <td>IPO</td>\n",
+              "      <td>0.46</td>\n",
+              "      <td>China</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>193</th>\n",
+              "      <td>Novogene</td>\n",
+              "      <td>1+</td>\n",
+              "      <td>November 2016[125]</td>\n",
+              "      <td>April 2021</td>\n",
+              "      <td>IPO</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>China</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>194</th>\n",
+              "      <td>MissFresh</td>\n",
+              "      <td>1+</td>\n",
+              "      <td>December 2017[125]</td>\n",
+              "      <td>June 2021[827]</td>\n",
+              "      <td>IPO</td>\n",
+              "      <td>2.5</td>\n",
+              "      <td>China</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>195</th>\n",
+              "      <td>Essential Products</td>\n",
+              "      <td>1+</td>\n",
+              "      <td>August 2017[828]</td>\n",
+              "      <td>February 2020[829]</td>\n",
+              "      <td>Defunct</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>US</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>196 rows × 8 columns</p>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-1ca2dd93-68c3-44ba-9d38-d05661d9b220')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-1ca2dd93-68c3-44ba-9d38-d05661d9b220 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-1ca2dd93-68c3-44ba-9d38-d05661d9b220');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 47
+        }
+      ],
+      "source": [
+        "# Get the 3rd DataFrames that being captured\n",
+        "tables[2]"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "9u7AYhFQ-b7d"
+      },
+      "source": [
+        "# !! Your Turn !!"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "XVVGpLCC-b7d"
+      },
+      "source": [
+        "## Replace the code marked as <..> COMPLETELY with your own.\n",
+        "For example:\n",
+        "length = <..> will be replaced by length = 10"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "5bdCb8lm-b7f"
+      },
+      "source": [
+        "# Question 1 \n",
+        "1) Read hdb_resale_full_raw.csv into pandas and named it <b>df_hdb</b> <br/>\n",
+        "2) print out the shape of <b>df_hdb</b>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "KujIqlOB-b7f"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Read the CSV file into a DataFrame named df_hdb\n",
+        "df_hdb = pd.read_csv('hdb_resale_full_raw.csv')\n",
+        "\n",
+        "# Print the shape of df_hdb\n",
+        "print(df_hdb.shape)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "Q7lL9rFC-b7f"
+      },
+      "source": [
+        "\n",
+        "3) Find out how many non-null records are there for each column\\\n",
+        "hint: using the methods that we have learnt from codes above (or from this week's content)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "YuLGdYng-b7f"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Read the CSV file into a DataFrame named df_hdb\n",
+        "df_hdb = pd.read_csv('hdb_resale_full_raw.csv')\n",
+        "\n",
+        "# Print the non-null count for each column\n",
+        "print(df_hdb.info())"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "kNhiqgRM-b7f"
+      },
+      "source": [
+        "# Question 2\n",
+        "1) list out the unique values for <b>flat_type</b> <br/>\n",
+        "2) print out the number of records for each of the <b>town</b> <br/>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "YntK2SQT-b7f"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Read the CSV file into a DataFrame named df_hdb\n",
+        "df_hdb = pd.read_csv('hdb_resale_full_raw.csv')\n",
+        "\n",
+        "# List out the unique values for flat_type\n",
+        "unique_flat_types = df_hdb['flat_type'].unique()\n",
+        "print(\"Unique flat types:\")\n",
+        "for flat_type in unique_flat_types:\n",
+        "    print(flat_type)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "PobNBs0m-b7f"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Read the CSV file into a DataFrame named df_hdb\n",
+        "df_hdb = pd.read_csv('hdb_resale_full_raw.csv')\n",
+        "\n",
+        "# Print the number of records for each town\n",
+        "town_counts = df_hdb['town'].value_counts()\n",
+        "print(\"Number of records for each town:\")\n",
+        "print(town_counts)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "PNBtgPZW-b7f"
+      },
+      "source": [
+        "# Question 3"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "ahlQDZjm-b7f"
+      },
+      "source": [
+        "1) Select the all the records from **Ang Mo Kio**.\\\n",
+        "No need to assign the output to any variable, just show the filtered dataframe on the notebook.\n",
+        "\n",
+        "Your DataFrame should look like this:\n",
+        "![](https://i.imgur.com/n399ZIt.png)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "d-0xvljW-b7f"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Read the CSV file into a DataFrame named df_hdb\n",
+        "df_hdb = pd.read_csv('hdb_resale_full_raw.csv')\n",
+        "\n",
+        "# Filter the dataframe for records from Ang Mo Kio\n",
+        "ang_mo_kio_df = df_hdb[df_hdb['town'] == 'Ang Mo Kio']\n",
+        "\n",
+        "# Show the filtered dataframe\n",
+        "ang_mo_kio_df"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "tuJ1iCFK-b7g"
+      },
+      "source": [
+        "2) Select the all the records of which the lease commence date is before 1980.\\\n",
+        "No need to assign the output to any variable, just show the filtered dataframe on the notebook.\n",
+        "\n",
+        "Your DataFrame should look like this:\n",
+        "![](https://i.imgur.com/SxDiUA1.png)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "MXgUunfr-b7g"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Read the CSV file into a DataFrame named df_hdb\n",
+        "df_hdb = pd.read_csv('hdb_resale_full_raw.csv')\n",
+        "\n",
+        "# Filter the dataframe for records with lease commence date before 1980\n",
+        "filtered_df = df_hdb[df_hdb['lease_commence_date'] < 1980]\n",
+        "\n",
+        "# Show the filtered dataframe\n",
+        "filtered_df"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "tags": [],
+        "id": "hl5gTXcz-b7g"
+      },
+      "source": [
+        "# Question 4"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "96nFeYUI-b7g"
+      },
+      "source": [
+        "1. Select resale transactions for flats in **Bedok** and under $300,000 in resale price\\\n",
+        "No need to assign the output to any variable, just show the filtered dataframe on the notebook.\n",
+        "\n",
+        "Your DataFrame should look like this:\n",
+        "![](https://i.imgur.com/vtm1ed5.png)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "N1DGJfsI-b7g"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Read the CSV file into a DataFrame named df_hdb\n",
+        "df_hdb = pd.read_csv('hdb_resale_full_raw.csv')\n",
+        "\n",
+        "# Filter the dataframe for records in Bedok with resale price under $300,000\n",
+        "filtered_df = df_hdb[(df_hdb['town'] == 'Bedok') & (df_hdb['resale_price'] < 300000)]\n",
+        "\n",
+        "# Show the filtered dataframe\n",
+        "filtered_df"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "6rqybWhK-b7g"
+      },
+      "source": [
+        "2. Select resale transactions for flats in Bedok and Ang Mo Kio, which the resale price is between \\$250k and 500K \\\n",
+        "No need to assign the output to any variable, just show the filtered dataframe on the notebook.\n",
+        "\n",
+        "Your DataFrame should look like this:\n",
+        "![](https://i.imgur.com/FjjC1os.png)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "YSths1ur-b7g"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Read the CSV file into a DataFrame named df_hdb\n",
+        "df_hdb = pd.read_csv('hdb_resale_full_raw.csv')\n",
+        "\n",
+        "# Define the towns and price range\n",
+        "towns = ['Bedok', 'Ang Mo Kio']\n",
+        "min_price = 250000\n",
+        "max_price = 500000\n",
+        "\n",
+        "# Filter the dataframe for records in Bedok and Ang Mo Kio with resale price within the specified range\n",
+        "filtered_df = df_hdb[(df_hdb['town'].isin(towns)) & (df_hdb['resale_price'].between(min_price, max_price))]\n",
+        "\n",
+        "# Show the filtered dataframe\n",
+        "filtered_df"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "0Xaa6gpl-b7g"
+      },
+      "source": [
+        "3. What are the differetn **flat_model** available in the resale transactions for **4-room** flats in **bedok**.\\\n",
+        "Print out each of the **flat_model** on a separat line."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "1DVRiYfB-b7g"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Read the CSV file into a DataFrame named df_hdb\n",
+        "df_hdb = pd.read_csv('hdb_resale_full_raw.csv')\n",
+        "\n",
+        "# Filter the dataframe for 4-room flats in Bedok\n",
+        "filtered_df = df_hdb[(df_hdb['town'] == 'Bedok') & (df_hdb['flat_type'] == '4 ROOM')]\n",
+        "\n",
+        "# Get the unique flat_model options\n",
+        "flat_models = filtered_df['flat_model'].unique()\n",
+        "\n",
+        "# Print each flat_model on a separate line\n",
+        "for model in flat_models:\n",
+        "    print(model)\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "y2-vjm9t-b7g"
+      },
+      "source": [
+        "# Question 5\n",
+        "1) create new field <b>floor_area_sqft</b> (Use conversion of 1 sqm = 10.7639 sqft) <br/>\n",
+        "2) create new field <b>price_per_sqft</b> by using resale_price and floor_area_sqft"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "KYsbpe3Y-b7g"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Read the CSV file into a DataFrame named df_hdb\n",
+        "df_hdb = pd.read_csv('hdb_resale_full_raw.csv')\n",
+        "\n",
+        "# Create the new field floor_area_sqft by converting floor_area_sqm to square feet\n",
+        "df_hdb['floor_area_sqft'] = df_hdb['floor_area_sqm'] * 10.7639\n",
+        "\n",
+        "# Display the updated DataFrame with the new field\n",
+        "print(df_hdb.head())\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "o1aJi4SW-b7g"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Read the CSV file into a DataFrame named df_hdb\n",
+        "df_hdb = pd.read_csv('hdb_resale_full_raw.csv')\n",
+        "\n",
+        "# Create the new field price_per_sqft by dividing resale_price by floor_area_sqft\n",
+        "df_hdb['price_per_sqft'] = df_hdb['resale_price'] / df_hdb['floor_area_sqft']\n",
+        "\n",
+        "# Display the updated DataFrame with the new field\n",
+        "print(df_hdb.head())\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "tags": [],
+        "id": "B3mHL0nz-b7g"
+      },
+      "source": [
+        "# Question 6"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "YEDKA0Cy-b7g"
+      },
+      "source": [
+        "1. What is the **average floor_area_sqm** for 3-room flats from **Ang Mo Kio**|"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "tags": [],
+        "id": "bqdCY3Dt-b7g"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Read the CSV file into a DataFrame named df_hdb\n",
+        "df_hdb = pd.read_csv('hdb_resale_full_raw.csv')\n",
+        "\n",
+        "# Filter the dataframe for 3-room flats from Ang Mo Kio\n",
+        "filtered_df = df_hdb[(df_hdb['town'] == 'Ang Mo Kio') & (df_hdb['flat_type'] == '3 ROOM')]\n",
+        "\n",
+        "# Calculate the average floor_area_sqm\n",
+        "average_floor_area = filtered_df['floor_area_sqm'].mean()\n",
+        "\n",
+        "# Print the average floor_area_sqm\n",
+        "print(\"Average floor area for 3-room flats in Ang Mo Kio:\", average_floor_area)\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "jb80hivo-b7g"
+      },
+      "source": [
+        "2. What is the **average resale price** for those 3-room flats from **Ang Mo Kio** that the flat's floor area is smaller than the average from part 1. above"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "-P3bf4ZR-b7g"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Read the CSV file into a DataFrame named df_hdb\n",
+        "df_hdb = pd.read_csv('hdb_resale_full_raw.csv')\n",
+        "\n",
+        "# Filter the dataframe for 3-room flats from Ang Mo Kio with floor area smaller than the average\n",
+        "average_floor_area = df_hdb[(df_hdb['town'] == 'Ang Mo Kio') & (df_hdb['flat_type'] == '3 ROOM')]['floor_area_sqm'].mean()\n",
+        "filtered_df = df_hdb[(df_hdb['town'] == 'Ang Mo Kio') & (df_hdb['flat_type'] == '3 ROOM') & (df_hdb['floor_area_sqm'] < average_floor_area)]\n",
+        "\n",
+        "# Calculate the average resale price\n",
+        "average_resale_price = filtered_df['resale_price'].mean()\n",
+        "\n",
+        "# Print the average resale price\n",
+        "print(\"Average resale price for 3-room flats in Ang Mo Kio with floor area smaller than average:\", average_resale_price)\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "EWWFKvmd-b7h"
+      },
+      "source": [
+        "# Exporting Data\n",
+        "Save the processed file in Processed Data folder as <b>hdb_resale_full_processed.csv</b>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "HGztc0xU-b7h"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Read the CSV file into a DataFrame named df_hdb\n",
+        "df_hdb = pd.read_csv('hdb_resale_full_raw.csv')\n",
+        "\n",
+        "# Perform data processing operations on df_hdb\n",
+        "\n",
+        "# Save the processed DataFrame as a CSV file in the \"Processed Data\" folder\n",
+        "df_hdb.to_csv('data/1_processed_data/hdb_resale_full_processed.csv', index=False)\n",
+        "\n",
+        "print(\"Processed data saved as 'hdb_resale_full_processed.csv' in the 'Processed Data' folder.\")\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "tags": [],
+        "id": "sn0rVXKQ-b7h"
+      },
+      "source": [
+        "# Extra: Question X (Optional)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "eoDVPEvv-b7h"
+      },
+      "source": [
+        "Get the data from the main table, with populations for each country from on this Wiki page:\n",
+        "\n",
+        "[https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population](https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population)\n",
+        "\n",
+        "Your DataFrame may look like this:\n",
+        "![](https://i.imgur.com/pQgfCoq.png)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# URL of the Wikipedia page\n",
+        "url = \"https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population\"\n",
+        "\n",
+        "# Read the HTML table into a DataFrame\n",
+        "tables = pd.read_html(url)\n",
+        "df_population = tables[0]\n",
+        "\n",
+        "# Display the DataFrame\n",
+        "print(df_population)\n"
+      ],
+      "metadata": {
+        "id": "1MmSBfdFrfPy",
+        "outputId": "fd32e9fc-7658-4ea4-f266-99681f51f716",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "    0                                                  1\n",
+            "0 NaN  This article needs to be updated. The reason g...\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3 (ipykernel)",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 3
+      },
+      "file_extension": ".py",
+      "mimetype": "text/x-python",
+      "name": "python",
+      "nbconvert_exporter": "python",
+      "pygments_lexer": "ipython3",
+      "version": "3.9.12"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
